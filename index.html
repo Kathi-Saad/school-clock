@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>التاريخ والوقت - منصة المدرسة</title>
+<style>
+* { box-sizing: border-box; }
+body {
+margin: 0;
+padding: 15px;
+font-family: Tahoma, Arial, sans-serif;
+background: transparent;
+}
+.card {
+max-width: 650px;
+margin: 10px auto;
+padding: 25px 15px;
+border-radius: 20px;
+text-align: center;
+color: #fff;
+background: linear-gradient(135deg,#176b68,#278f86);
+box-shadow: 0 5px 18px #0002;
+}
+.day { font-size: 23px; font-weight: bold; }
+.time {
+font-size: clamp(35px, 9vw, 55px);
+font-weight: bold;
+margin: 15px 0;
+direction: ltr;
+font-variant-numeric: tabular-nums;
+}
+.date { font-size: 17px; line-height: 2; }
+</style>
+</head>
+<body>
+<div class="card">
+<div class="day" id="day">مرحبًا بكم</div>
+<div class="time" id="time">00:00:00</div>
+<div class="date" id="hijri"></div>
+<div class="date" id="gregorian"></div>
+</div>
+<script>
+function updateClock() {
+const now = new Date();
+const zone = "Asia/Riyadh";
+document.getElementById("day").textContent =
+new Intl.DateTimeFormat("ar-SA", {
+weekday: "long", timeZone: zone
+}).format(now);
+
+document.getElementById("time").textContent =
+new Intl.DateTimeFormat("en-GB", {
+hour: "2-digit", minute: "2-digit",
+second: "2-digit", hour12: false, timeZone: zone
+}).format(now);
+
+document.getElementById("hijri").textContent =
+"التاريخ الهجري: " +
+new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura", {
+day: "numeric", month: "long", year: "numeric",
+timeZone: zone
+}).format(now);
+
+document.getElementById("gregorian").textContent =
+"التاريخ الميلادي: " +
+new Intl.DateTimeFormat("ar-SA", {
+day: "numeric", month: "long", year: "numeric",
+timeZone: zone
+}).format(now);
+}
+updateClock();
+setInterval(updateClock, 1000);
+</script>
+</body>
+</html>
+
